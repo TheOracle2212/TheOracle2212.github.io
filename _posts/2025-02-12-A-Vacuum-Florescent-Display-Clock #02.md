@@ -1,11 +1,16 @@
 ---
-title:  "A Vacuum fluorescent display clock #02 "
-mathjax: false
 layout: post
-categories: Clock, VFD, Arduino, Programming, GPS
+title:  "A Vacuum fluorescent display clock #02 "
+description: "Part ii of a highly anticipated series!"
+date: 2025-02-12
+feature_image: images/apple-watch.jpg
+tags: [vfd, clock]
 ---
+
 ## Alright!!
-I got a Rasberry Pi Pico (not a W - decided I didn't need it - a potentially bad decision??). This meant that I had to port everything (all my code) to Earl E Philhower's library/ SDK port of Pi Pico. 
+I got a Rasberry Pi Pico (not a W - decided I didn't need it - a potentially bad decision??) - finally closing in on clearing up my desk. And getting a free clock with it.
+<!--more-->
+This meant that I had to port everything (all my code) to Earl E Philhower's library/ SDK port of Pi Pico. 
 It wasn't too bad at all and I recall managing everything to be fine by the 2nd upload. 
 
 In any case:
