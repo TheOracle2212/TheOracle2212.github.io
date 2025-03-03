@@ -41,6 +41,8 @@ Serial.write(0x1B);
   Serial.write(brightness);
   countcycle += 1;
 }
-``` 
+```
+!Edit: I rended up removing this feature becuase I just implemented a blackout period from like 10 to 5 in the morning. Almost all other times I'd wanted it to be as bright as possible. Also, at its lowerst brightess, I can hear the hum from the noisy switchmode power supply.
+
 Interstingly, this takes a couple of minutes. This gives me a decent refresh time for the dimming, but doesn't slow anything down too much.
 From here, I'm just waiting for a better microcontroller to arrive (yes!!) to use. The full program (out in my next post) is like already ~80% of my progam memory.
