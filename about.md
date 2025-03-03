@@ -5,12 +5,14 @@ description: An optional about page for Scriptor Jekyll theme
 feature_image: images/about.jpg
 ---
 
-**John Doe** is a Senior Art Director from [Vilnius](https://en.wikipedia.org/wiki/Vilnius), Lithuania. After graduating from The College of Visual Arts with a degree in Communication Design, he worked for three small graphic design shops where he honed his design style and sensibility.
 
-His work has been recognized by Communication Arts, Print, How, ID, IdN, AIGA, Effie, Archive, Graphis, AdFed and Rockport. Graphic Design USA named him a person to watch in 2015.
+I'm not going to say too much - purely in the interest of privacy and to prevent doxxing. 
 
->The world always seems brighter when you’ve just made something that wasn’t there before. <cite>Neil Gaiman</cite>
+I'm 17 years old and I live on an island - a very big one (Australia). My many interests include everything from Programming (Machine learning, data science, computer vision, general systems, and embedded systems - more later), to 3D Printing, Cryptography, Mathematics (see Mathematics Posts), new and emerging technologies, Electronics - micro controller/processor systems.
 
-As a hobby, John Doe authors the most influential design blog in Lithuania with over 100,000 page views a month. He lives in Vilnius with his beautiful wife, two boys and one girl.
+A self-professed Apple fanboy; I still critique many of their decisions constructively in the interest of iteration and development. I use MacOS and Linux for pretty much everything.
 
-*Thank You for reading!*
+
+Always looking for self-improvement ideas (or other improvement ideas), and feedback is always welcome.
+
+See you around!
