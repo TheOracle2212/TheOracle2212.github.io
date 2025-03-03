@@ -9,10 +9,10 @@
 lang: en-US
 
 # Site title
-title: "Scriptor"
+title: "Jeeva Arjun's blog"
 
 # A description of your site for meta tag, search engine results.
-description: "Jeeva Arjun's blog"
+description: "A recreation of my messy desk on the internet. For more people to recognise the messyness of my desk."
 
 # The subpath of your site, e.g. /blog, for generating urls.
 baseurl: "https://theoracle2212.github.io"
@@ -31,21 +31,21 @@ navigation:
   - text: Home
     url: /
   - text: About
-    url: /about/
+    url: /about.md/
   - text: Style Guide
-    url: /style-guide/
+    url: /style-guide.md/
   - text: Tags
-    url: /tags/
+    url: /tags.md/
     
 # The shortname for your Disqus site to enable comments.
-disqus: justgoodthemes
+disqus: i wish i had a disqus
 
 # Colors
 accent_color: '#2d72d9'
 
 # Site footer
 footer:
-  content: "&copy; Scriptor all rights reserved. Theme by [JustGoodThemes](https://www.justgoodthemes.com)."
+  content: "king arjun"
   has_social: true
 
 # Plugins
