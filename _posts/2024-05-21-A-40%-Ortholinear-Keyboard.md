@@ -1,8 +1,10 @@
 ---
-title: "Keyboard - Ortholinear 40%"
 layout: post
-mathjax: false
-categories: Ergonomics, Keyboard, Ortholinear, 40%
+title: "Keyboard - Ortholinear 40%"
+description: "The mess begins"
+date: 2024-05-21
+feature_image: images/apple-watch.jpg
+tags: [Ergonomics, Keyboard, Ortholinear, 40%]
 ---
 ## Ortholinear?!
 Keyboards have been the same for a century and a half now. They've got the same QWERTY style letters with each row being *just* slightly staggered from each other. Given the
@@ -11,7 +13,10 @@ preeminence of computers, very few of us have stopped to think: Why?
 As it turns out, there's a very legacy-like reason. 
 Before computers, we had typewriters:
 
-!(Early typewriter!)[https://image.invaluable.com/housePhotos/Lawsons/05/733505/H0669-L305593279_original.jpg]
+
+<!--more-->
+
+!(Early typewriter)[https://image.invaluable.com/housePhotos/Lawsons/05/733505/H0669-L305593279_original.jpg]
 
 And the arms with ink that strike the page were mechanically fixed to the keys. So pressing a key caused an arm to press a thin layer of ink in the shape of a key on the paper. Neat! Since the arms couldn't be directly
 one one another (from one key on the keypad above another), the typewriter keypad layouts were slightly shifted. All the arms could very nicely fit without any additional mechanical work. As the masses began to learn to type
