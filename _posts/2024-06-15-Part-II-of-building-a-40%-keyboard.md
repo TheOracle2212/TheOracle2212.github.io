@@ -1,14 +1,17 @@
 ---
-title: "Keyboard - Ortholinear 40% Part II"
 layout: post
-mathjax: false
-categories: Ergonomics, Keyboard, Ortholinear, 40%, build, Part II, 2
+title: "Keyboard - Ortholinear 40% Part ii"
+description: "Loreum Ipsum"
+date: 2024-06-15
+feature_image: images/apple-watch.jpg
+tags: [Ergonomics, Keyboard, Ortholinear, 40%, build, Part II, 2]
 ---
+
 Rather than a how-to guide (there are sooo many for interested parties), this is more of my experience in building my very unique keyboard.
 
 ## Parts
 60 (5 rows of 12 columns) keyswitches and diodes
-Microcontroller -  a Raspberry Pi Pico W I had on my desk while I was developing a drivier for the LIS3DH accelrometer.
+Microcontroller -  a Raspberry Pi Pico W I had on my desk while I was developing a drivier for the LIS3DH accelerometer.
 A decent amount of 22 awg wire.
 
 ## The process.
@@ -20,4 +23,4 @@ Ghosting and phantom keys are eliminated by the use of a diode
 
 **picture of keyboard so far**
 
-It then becomes 
+**more to go!!**
