@@ -15,16 +15,7 @@ layout: default
       <div class="slide-wrapper {% if forloop.first %}active{% endif %}">
         <img class="slide"
              src="{{ folder }}{{ img.file | relative_url }}">
-
-        <div class="metadata">
-          <div>{{ img.brand }} {{ img.camera }}</div>
-          <div>
-            {{ img.lens }} • {{ img.aperture }} • ISO {{ img.iso }} • {{ img.shutter }}
-          </div>
-        </div>
       </div>
-      {% endfor %}
-
     </div>
 
     <button class="nav next">&#10095;</button>
