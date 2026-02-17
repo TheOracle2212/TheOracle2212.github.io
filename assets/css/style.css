@@ -501,3 +501,38 @@ body {
     padding: 1rem;
   }
 }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 2px;
+  background: white;
+}
+
+@media (max-width: 768px) {
+
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: #111;
+    flex-direction: column;
+    width: 200px;
+    padding: 1rem;
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
