@@ -3,29 +3,37 @@ layout: default
 ---
 
 <section class="hero-gallery">
+
   {% assign folder = page.image_folder %}
-  {% assign images = "" | split: "" %}
 
-  {% for file in site.static_files %}
-    {% if file.path contains folder %}
-      {% assign images = images | push: file.path %}
-    {% endif %}
-  {% endfor %}
-
-  {% if images.size > 0 %}
   <div class="slider">
     <button class="nav prev">&#10094;</button>
 
     <div class="slide-container">
-      {% for img in images %}
-        <img class="slide {% if forloop.first %}active{% endif %}"
-             src="{{ img | relative_url }}">
+
+      {% for img in page.images_data %}
+      <div class="slide-wrapper {% if forloop.first %}active{% endif %}">
+        <img class="slide"
+             src="{{ folder }}{{ img.file | relative_url }}">
+
+        <div class="metadata">
+          <div>{{ img.brand }} {{ img.camera }}</div>
+          <div>
+            {{ img.lens }} • {{ img.aperture }} • ISO {{ img.iso }} • {{ img.shutter }}
+          </div>
+        </div>
+      </div>
       {% endfor %}
+
     </div>
 
     <button class="nav next">&#10095;</button>
+
+    <div class="counter">
+      <span id="current">1</span> /
+      <span id="total">{{ page.images_data | size }}</span>
+    </div>
   </div>
-  {% endif %}
 </section>
 
 <section class="post-content">
@@ -36,7 +44,6 @@ layout: default
   </div>
 </section>
 
-<!-- Lightbox -->
 <div class="lightbox" id="lightbox">
   <span class="close">&times;</span>
   <img class="lightbox-img" id="lightbox-img">
@@ -45,36 +52,60 @@ layout: default
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
-  const slides = document.querySelectorAll(".slide");
+  const slides = document.querySelectorAll(".slide-wrapper");
   const next = document.querySelector(".next");
   const prev = document.querySelector(".prev");
+  const counterCurrent = document.getElementById("current");
+  const total = slides.length;
+  const navButtons = document.querySelectorAll(".nav");
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightbox-img");
   const closeBtn = document.querySelector(".close");
 
   let index = 0;
+  let navTimeout;
 
   function showSlide(i) {
     slides.forEach(slide => slide.classList.remove("active"));
     slides[i].classList.add("active");
+    counterCurrent.textContent = i + 1;
   }
 
-  if (next && prev) {
-    next.addEventListener("click", () => {
-      index = (index + 1) % slides.length;
-      showSlide(index);
-    });
-
-    prev.addEventListener("click", () => {
-      index = (index - 1 + slides.length) % slides.length;
-      showSlide(index);
-    });
+  function nextSlide() {
+    index = (index + 1) % total;
+    showSlide(index);
   }
 
+  function prevSlide() {
+    index = (index - 1 + total) % total;
+    showSlide(index);
+  }
+
+  next.addEventListener("click", nextSlide);
+  prev.addEventListener("click", prevSlide);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") nextSlide();
+    if (e.key === "ArrowLeft") prevSlide();
+  });
+
+  // Swipe Support
+  let startX = 0;
+  document.querySelector(".slider").addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+  });
+
+  document.querySelector(".slider").addEventListener("touchend", e => {
+    let endX = e.changedTouches[0].clientX;
+    if (startX - endX > 50) nextSlide();
+    if (endX - startX > 50) prevSlide();
+  });
+
+  // Lightbox
   slides.forEach(slide => {
-    slide.addEventListener("click", () => {
+    slide.querySelector("img").addEventListener("click", () => {
       lightbox.style.display = "flex";
-      lightboxImg.src = slide.src;
+      lightboxImg.src = slide.querySelector("img").src;
     });
   });
 
@@ -83,10 +114,22 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) {
-      lightbox.style.display = "none";
-    }
+    if (e.target === lightbox) lightbox.style.display = "none";
   });
+
+  // Auto-hide nav
+  function showNav() {
+    navButtons.forEach(btn => btn.style.opacity = "1");
+    clearTimeout(navTimeout);
+    navTimeout = setTimeout(() => {
+      navButtons.forEach(btn => btn.style.opacity = "0");
+    }, 2000);
+  }
+
+  document.querySelector(".slider").addEventListener("mousemove", showNav);
+  document.querySelector(".slider").addEventListener("touchstart", showNav);
+
+  showNav();
 
 });
 </script>
