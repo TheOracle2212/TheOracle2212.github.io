@@ -19,7 +19,9 @@ layout: default
     <div class="slide-container">
       {% for img in images %}
         <img class="slide {% if forloop.first %}active{% endif %}"
-             src="{{ img | relative_url }}">
+             src="{{ img | relative_url }}"
+             loading="lazy"
+             decoding="async">
       {% endfor %}
     </div>
 
