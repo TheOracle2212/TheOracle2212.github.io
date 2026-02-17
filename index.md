@@ -10,11 +10,14 @@ title: Home
 
 <section class="post-grid">
   {% for post in site.posts %}
-    {% assign first_image = post.images_data[0] %}
     <a href="{{ post.url | relative_url }}" class="post-tile">
-      
-      <div class="tile-image"
-           style="background-image: url('{{ post.image_folder }}{{ first_image.file | relative_url }}');">
+
+      <div class="tile-images">
+        {% for img in post.images_data limit:3 %}
+        <div class="tile-image"
+             style="background-image: url('{{ post.image_folder }}{{ img.file | relative_url }}');">
+        </div>
+        {% endfor %}
       </div>
 
       <div class="tile-overlay">
