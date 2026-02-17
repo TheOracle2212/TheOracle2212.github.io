@@ -393,3 +393,38 @@ html {
   font-size: 0.9rem;
 }
 
+/* NAVIGATION BAR */
+nav {
+  width: 100%;
+  background-color: #111; /* dark cinematic background */
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-links a {
+  margin-left: 2rem;
+  font-size: 1rem;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #ffcc00; /* subtle accent color on hover */
+}
