@@ -1,0 +1,19 @@
+title: Arjun's Photography
+description: A visual journal of places, light, and motion.
+baseurl: ""
+url: "https://TheOracle2212.github.io"
+
+markdown: kramdown
+permalink: /:title/
+
+collections:
+  posts:
+    output: true
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
