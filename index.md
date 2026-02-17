@@ -12,18 +12,22 @@ title: Home
 
   {% for post in site.posts %}
 
-    {% assign folder = post.image_folder %}
+    {% assign folder = post.image_folder | replace: "/", "" %}
     {% assign images = "" | split: "" %}
 
     {% if folder %}
 
       {% for file in site.static_files %}
-        {% if file.path contains folder %}
+        {% assign filepath = file.path | replace: "/", "" %}
+        
+        {% if filepath contains folder %}
           {% if file.extname == ".jpg" 
              or file.extname == ".jpeg" 
              or file.extname == ".png" 
              or file.extname == ".webp" %}
+             
             {% assign images = images | push: file.path %}
+            
           {% endif %}
         {% endif %}
       {% endfor %}
