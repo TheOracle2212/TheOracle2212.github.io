@@ -8,20 +8,12 @@ title: Home
   <p>A visual journal of light, motion, and presence.</p>
 </section>
 
-<section class="post-grid">
+<section class="post-list">
   {% for post in site.posts %}
-    {% assign first_image = post.images_data[0] %}
-    <a href="{{ post.url | relative_url }}" class="post-tile">
-      
-      <div class="tile-image"
-           style="background-image: url('{{ post.image_folder }}{{ first_image.file | relative_url }}');">
-      </div>
-
-      <div class="tile-overlay">
-        <h2>{{ post.title }}</h2>
-        <span>{{ post.date | date: "%B %Y" }}</span>
-      </div>
-
-    </a>
+    <div class="post-card">
+      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+      <p>{{ post.date | date: "%B %d, %Y" }}</p>
+      <p>{{ post.excerpt }}</p>
+    </div>
   {% endfor %}
 </section>
