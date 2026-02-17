@@ -17,8 +17,14 @@ document.addEventListener("DOMContentLoaded", function() {
 <nav>
   <div class="nav-container">
     <a href="{{ '/' | relative_url }}" class="logo">{{ site.title }}</a>
-    
-    <div class="nav-links">
+
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="nav-links" id="nav-links">
       <a href="{{ '/' | relative_url }}">Home</a>
       <a href="{{ '/about' | relative_url }}">About</a>
     </div>
@@ -31,6 +37,14 @@ document.addEventListener("DOMContentLoaded", function() {
 <footer>
   <p>© {{ site.time | date: '%Y' }} {{ site.title }}</p>
 </footer>
+
+  
+<script>
+document.getElementById("hamburger").addEventListener("click", function() {
+  document.getElementById("nav-links").classList.toggle("active");
+});
+</script>
+
 
 </body>
 </html>
