@@ -6,7 +6,7 @@ title: About Me
 
   <!-- Picture of yourself -->
   <div class="about-image">
-    <img src="/assets/images/about-me.jpg" alt="Arjun" />
+    <img src="/assets/images/about-me.JPG" alt="Arjun" />
   </div>
 
   <!-- Text content -->
