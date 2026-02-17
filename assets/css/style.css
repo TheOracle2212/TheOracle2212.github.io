@@ -1,155 +1,75 @@
-/* GLOBAL */
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #050505;
-  color: #ffffff;
-  opacity: 0;
-  transition: opacity 0.6s ease;
+  background: #0b0b0b;
+  color: #f2f2f2;
+  letter-spacing: 0.3px;
 }
-
-body.loaded {
-  opacity: 1;
-}
-
-a, a:visited {
-  color: #ffffff;
-  text-decoration: none;
-}
-
-/* NAV */
 
 nav {
-  background: rgba(0,0,0,0.65);
-  backdrop-filter: blur(14px);
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(10px);
   padding: 1rem 2rem;
-  border-bottom: 1px solid #111;
+  border-bottom: 1px solid #1a1a1a;
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-/* HOMEPAGE HERO */
-
-.homepage-hero {
-  text-align: center;
-  padding: 6rem 2rem 4rem 2rem;
-}
-
-.homepage-hero h1 {
-  font-size: 3.5rem;
-  letter-spacing: 3px;
-  margin-bottom: 1rem;
-}
-
-.homepage-hero p {
-  color: #888;
-}
-
-/* POST GRID */
-
-.post-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
-  max-width: 1300px;
-  margin: 0 auto 6rem auto;
-  padding: 0 2rem;
-}
-
-.post-tile {
-  position: relative;
-  height: 500px;
-  overflow: hidden;
-  border-radius: 4px;
-  display: block;
-}
-
-.tile-image {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.8s ease, filter 0.6s ease;
-}
-
-.post-tile:hover .tile-image {
-  transform: scale(1.05);
-  filter: brightness(0.6);
-}
-
-.tile-overlay {
-  position: absolute;
-  inset: 0;
+.nav-container {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 2rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-  opacity: 0;
-  transition: opacity 0.5s ease;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.post-tile:hover .tile-overlay {
-  opacity: 1;
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  transition: opacity 0.3s ease;
 }
 
-.tile-overlay h2 {
-  font-size: 1.8rem;
-  margin: 0;
-}
-
-.tile-overlay span {
-  font-size: 0.9rem;
-  color: #ccc;
-}
-
-/* POST HEADER */
-
-.post-header {
-  text-align: center;
-  padding: 4rem 2rem 2rem 2rem;
-}
-
-.post-header h1 {
-  font-size: 3rem;
-  letter-spacing: 2px;
-}
-
-.post-date {
-  color: #888;
+nav a:hover {
+  opacity: 0.6;
 }
 
 /* HERO GALLERY */
 
 .hero-gallery {
-  height: 80vh;
-  background: #000;
+  width: 100%;
+  max-height: 85vh;
+  overflow: hidden;
   position: relative;
+  background: #000;
 }
 
 .slider {
+  position: relative;
+  width: 100%;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-container {
+  width: 100%;
   height: 100%;
   position: relative;
 }
 
-.slide-wrapper {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-
-.slide-wrapper.active {
-  opacity: 1;
-}
-
 .slide {
+  position: absolute;
   width: 100%;
   height: 100%;
   object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.6s ease;
   cursor: zoom-in;
+}
+
+.slide.active {
+  opacity: 1;
 }
 
 /* NAV BUTTONS */
@@ -164,44 +84,38 @@ nav {
   font-size: 2rem;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  transition: opacity 0.5s ease;
+  z-index: 10;
+  transition: background 0.3s ease;
+}
+
+.nav:hover {
+  background: rgba(0,0,0,0.7);
 }
 
 .prev { left: 20px; }
 .next { right: 20px; }
 
-/* COUNTER */
+/* POST CONTENT */
 
-.counter {
-  position: absolute;
-  bottom: 30px;
-  right: 40px;
-  font-size: 0.9rem;
-  letter-spacing: 3px;
-  color: #ccc;
+.post-content {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 0 2rem;
 }
 
-/* METADATA */
-
-.metadata {
-  position: absolute;
-  bottom: 30px;
-  left: 40px;
-  font-size: 0.85rem;
-  opacity: 0.8;
-  line-height: 1.4;
+.post-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
 }
 
-/* PROGRESS BAR */
+.post-date {
+  color: #aaa;
+  margin-bottom: 1.5rem;
+}
 
-.progress-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: white;
-  width: 0%;
-  transition: width 0.4s ease;
+.post-body {
+  line-height: 1.7;
+  font-size: 1.05rem;
 }
 
 /* LIGHTBOX */
@@ -210,7 +124,7 @@ nav {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.97);
+  background: rgba(0,0,0,0.95);
   justify-content: center;
   align-items: center;
   z-index: 2000;
@@ -226,5 +140,6 @@ nav {
   top: 30px;
   right: 40px;
   font-size: 2rem;
+  color: white;
   cursor: pointer;
 }
