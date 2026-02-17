@@ -6,7 +6,7 @@ title: About Me
 
   <!-- Picture of yourself -->
   <div class="about-image">
-    <img src="assets/images/jpeg-optimizer_DSC_2566.JPG" alt="Arjun" />
+    <img src="{{ '/assets/images/jpeg-optimizer_DSC_2566.JPG' | relative_url }}" alt="Arjun">
   </div>
 
   <!-- Text content -->
