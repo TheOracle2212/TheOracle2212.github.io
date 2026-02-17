@@ -1,107 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Post</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+---
+layout: default
+---
 
-<h1 class="post-title">Post Title Goes Here</h1>
+<section class="hero-gallery">
 
-<div class="gallery-container">
-  <div class="loading-bar" id="loadingBar"></div>
+  {% assign folder = page.image_folder %}
 
-  <button class="nav-btn prev-btn" onclick="prevImage()">‹</button>
-  <img id="galleryImage" class="gallery-image" src="" alt="Gallery Image">
-  <button class="nav-btn next-btn" onclick="nextImage()">›</button>
+  <div class="slider">
+    <button class="nav prev">&#10094;</button>
 
-  <div class="image-counter" id="imageCounter"></div>
-</div>
+    <div class="slide-container">
 
-<div class="metadata" id="metadata"></div>
+      {% for img in page.images_data %}
+      <div class="slide-wrapper {% if forloop.first %}active{% endif %}">
+        <img class="slide"
+             src="{{ folder }}{{ img.file | relative_url }}">
 
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <img id="lightboxImg" src="">
+        <div class="metadata">
+          <div>{{ img.brand }} {{ img.camera }}</div>
+          <div>
+            {{ img.lens }} • {{ img.aperture }} • ISO {{ img.iso }} • {{ img.shutter }}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <button class="nav next">&#10095;</button>
+
+    <div class="counter">
+      <span id="current">1</span> /
+      <span id="total">{{ page.images_data | size }}</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <h1>{{ page.title }}</h1>
+  <p class="post-date">{{ page.date | date: "%B %d, %Y" }}</p>
+  <div class="post-body">
+    {{ content }}
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <span class="close">&times;</span>
+  <img class="lightbox-img" id="lightbox-img">
 </div>
 
 <script>
+document.addEventListener("DOMContentLoaded", function() {
 
-/* ============================= */
-/* GALLERY LOGIC */
-/* ============================= */
+  const slides = document.querySelectorAll(".slide-wrapper");
+  const next = document.querySelector(".next");
+  const prev = document.querySelector(".prev");
+  const counterCurrent = document.getElementById("current");
+  const total = slides.length;
+  const navButtons = document.querySelectorAll(".nav");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const closeBtn = document.querySelector(".close");
 
-let currentIndex = 0;
-const imgElement = document.getElementById("galleryImage");
-const counter = document.getElementById("imageCounter");
-const metadata = document.getElementById("metadata");
-const loadingBar = document.getElementById("loadingBar");
+  let index = 0;
+  let navTimeout;
 
-function updateImage() {
-  imgElement.classList.add("fade-out");
-  loadingBar.style.width = "0%";
+  function showSlide(i) {
+    slides.forEach(slide => slide.classList.remove("active"));
+    slides[i].classList.add("active");
+    counterCurrent.textContent = i + 1;
+  }
 
-  const newImg = new Image();
-  newImg.src = images[currentIndex].src;
+  function nextSlide() {
+    index = (index + 1) % total;
+    showSlide(index);
+  }
 
-  let progress = 0;
-  const interval = setInterval(() => {
-    progress += 10;
-    loadingBar.style.width = progress + "%";
-    if (progress >= 90) clearInterval(interval);
-  }, 30);
+  function prevSlide() {
+    index = (index - 1 + total) % total;
+    showSlide(index);
+  }
 
-  newImg.onload = () => {
-    imgElement.src = newImg.src;
-    imgElement.classList.remove("fade-out");
-    loadingBar.style.width = "100%";
+  next.addEventListener("click", nextSlide);
+  prev.addEventListener("click", prevSlide);
 
-    counter.textContent = `${currentIndex + 1} / ${images.length}`;
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") nextSlide();
+    if (e.key === "ArrowLeft") prevSlide();
+  });
 
-    metadata.innerHTML = `
-      <div><strong>Camera:</strong> ${images[currentIndex].camera}</div>
-      <div><strong>Brand:</strong> ${images[currentIndex].brand}</div>
-      <div><strong>Aperture:</strong> ${images[currentIndex].aperture}</div>
-      <div><strong>ISO:</strong> ${images[currentIndex].iso}</div>
-      <div><strong>Shutter:</strong> ${images[currentIndex].shutter}</div>
-      <div><strong>Lens:</strong> ${images[currentIndex].lens}</div>
-    `;
-  };
-}
+  // Swipe Support
+  let startX = 0;
+  document.querySelector(".slider").addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+  });
 
-function nextImage() {
-  currentIndex = (currentIndex + 1) % images.length;
-  updateImage();
-}
+  document.querySelector(".slider").addEventListener("touchend", e => {
+    let endX = e.changedTouches[0].clientX;
+    if (startX - endX > 50) nextSlide();
+    if (endX - startX > 50) prevSlide();
+  });
 
-function prevImage() {
-  currentIndex = (currentIndex - 1 + images.length) % images.length;
-  updateImage();
-}
+  // Lightbox
+  slides.forEach(slide => {
+    slide.querySelector("img").addEventListener("click", () => {
+      lightbox.style.display = "flex";
+      lightboxImg.src = slide.querySelector("img").src;
+    });
+  });
 
-/* ============================= */
-/* LIGHTBOX */
-/* ============================= */
+  closeBtn.addEventListener("click", () => {
+    lightbox.style.display = "none";
+  });
 
-imgElement.addEventListener("click", () => {
-  document.getElementById("lightboxImg").src = images[currentIndex].src;
-  document.getElementById("lightbox").classList.add("active");
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) lightbox.style.display = "none";
+  });
+
+  // Auto-hide nav
+  function showNav() {
+    navButtons.forEach(btn => btn.style.opacity = "1");
+    clearTimeout(navTimeout);
+    navTimeout = setTimeout(() => {
+      navButtons.forEach(btn => btn.style.opacity = "0");
+    }, 2000);
+  }
+
+  document.querySelector(".slider").addEventListener("mousemove", showNav);
+  document.querySelector(".slider").addEventListener("touchstart", showNav);
+
+  showNav();
+
 });
-
-function closeLightbox() {
-  document.getElementById("lightbox").classList.remove("active");
-}
-
-/* Keyboard navigation */
-document.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowRight") nextImage();
-  if (e.key === "ArrowLeft") prevImage();
-  if (e.key === "Escape") closeLightbox();
-});
-
-/* Initialize */
-updateImage();
 </script>
-
-</body>
-</html>
