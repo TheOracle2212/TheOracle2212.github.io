@@ -1,0 +1,58 @@
+name: Auto Optimize Images
+
+on:
+  push:
+    paths:
+      - 'assets/images/**/*.jpg'
+      - 'assets/images/**/*.jpeg'
+      - 'assets/images/**/*.png'
+      - 'images/**/*.jpg'
+      - 'images/**/*.jpeg'
+  workflow_dispatch:
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install ImageMagick + WebP
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick webp
+
+      - name: Process images
+        run: |
+          for file in $(find assets/images -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) ! -iname "*_small.*" ! -iname "*_large.*" ! -iname "*.webp"); do
+            
+            filename="${file%.*}"
+            ext="${file##*.}"
+
+            echo "Processing $file"
+
+            # Generate small
+            if [[ ! -f "${filename}_small.${ext}" ]]; then
+              convert "$file" -resize 1200x -quality 80 -strip "${filename}_small.${ext}"
+            fi
+
+            # Generate large
+            if [[ ! -f "${filename}_large.${ext}" ]]; then
+              convert "$file" -resize 2400x -quality 85 -strip "${filename}_large.${ext}"
+            fi
+
+            # Generate WebP (compressed)
+            if [[ ! -f "${filename}.webp" ]]; then
+              cwebp -q 80 "$file" -o "${filename}.webp"
+            fi
+
+          done
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Auto-optimized images" || echo "No changes"
+          git push
