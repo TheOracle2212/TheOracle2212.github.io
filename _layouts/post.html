@@ -77,6 +77,43 @@ document.addEventListener("DOMContentLoaded", function() {
   let navTimeout;
 
   /* ========================= */
+/* GLOBAL IMAGE LOADING BAR */
+/* ========================= */
+
+const progressBar = document.getElementById("progressBarTop");
+
+function setupImageLoader() {
+  const images = document.querySelectorAll("img");
+  let loaded = 0;
+  const total = images.length;
+
+  if (!progressBar || total === 0) return;
+
+  function updateProgress() {
+    loaded++;
+    const percent = (loaded / total) * 100;
+    progressBar.style.width = percent + "%";
+
+    if (loaded === total) {
+      setTimeout(() => {
+        progressBar.style.width = "0%";
+      }, 400);
+    }
+  }
+
+  images.forEach(img => {
+    if (img.complete) {
+      updateProgress();
+    } else {
+      img.addEventListener("load", updateProgress);
+      img.addEventListener("error", updateProgress);
+    }
+  });
+}
+
+setupImageLoader();
+  
+  /* ========================= */
   /* CORE FUNCTIONS */
   /* ========================= */
 
