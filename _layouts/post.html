@@ -118,9 +118,22 @@ setupImageLoader();
   /* ========================= */
 
   function preloadImage(i) {
-    const img = new Image();
-    img.src = slides[i].src;
+  const img = new Image();
+  img.src = slides[i].src;
+
+  if (progressBar) {
+    progressBar.style.width = "30%";
   }
+
+  img.onload = () => {
+    if (progressBar) {
+      progressBar.style.width = "100%";
+      setTimeout(() => {
+        progressBar.style.width = "0%";
+      }, 300);
+    }
+  };
+}
 
   function updateInfo(i) {
     const img = slides[i];
