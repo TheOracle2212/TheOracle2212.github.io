@@ -20,6 +20,10 @@ title: About Me
       I focus on capturing authentic scenes, experimenting with color and perspective,
       and sharing stories through imagery.
     </p>
+
+    <p>
+      As a word of warning, this website will push your network speed. While these are still slightly downsampled images I've post processed, I personally refuse to deliberately drop resolution and definition in the images for slightly faster loading times - I hope you understand. 
+    </p>
   </div>
 
 </section>
