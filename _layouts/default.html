@@ -7,29 +7,18 @@
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  document.body.classList.add("loaded");
-});
-</script>
-  
 <body>
+
 <nav>
   <div class="nav-container">
     <a href="{{ '/' | relative_url }}" class="logo">{{ site.title }}</a>
-
-    <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
-    <div class="nav-links" id="nav-links">
+    <div class="nav-links">
       <a href="{{ '/' | relative_url }}">Home</a>
       <a href="{{ '/about' | relative_url }}">About</a>
     </div>
   </div>
 </nav>
+
 <main>
   {{ content }}
 </main>
@@ -38,13 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
   <p>© {{ site.time | date: '%Y' }} {{ site.title }}</p>
 </footer>
 
-  
-<script>
-document.getElementById("hamburger").addEventListener("click", function() {
-  document.getElementById("nav-links").classList.toggle("active");
-});
-</script>
+<script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 
-  
 </body>
 </html>
