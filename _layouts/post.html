@@ -62,51 +62,120 @@ document.addEventListener("DOMContentLoaded", function() {
   const slides = document.querySelectorAll(".slide");
   const next = document.querySelector(".next");
   const prev = document.querySelector(".prev");
+  const slider = document.querySelector(".slider");
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightbox-img");
   const closeBtn = document.querySelector(".close");
-
   const counterEl = document.querySelector(".image-counter");
   const resolutionEl = document.querySelector(".image-resolution");
 
   if (slides.length === 0) return;
 
   let index = 0;
+  let touchStartX = 0;
+  let touchEndX = 0;
+  let navTimeout;
+
+  /* ========================= */
+  /* CORE FUNCTIONS */
+  /* ========================= */
+
+  function preloadImage(i) {
+    const img = new Image();
+    img.src = slides[i].src;
+  }
 
   function updateInfo(i) {
     const img = slides[i];
-
     counterEl.textContent = `${i + 1} / ${slides.length}`;
 
-    // Ensure resolution loads properly
     if (img.naturalWidth) {
       resolutionEl.textContent =
         `${img.naturalWidth} × ${img.naturalHeight}`;
-    } else {
-      img.onload = () => {
-        resolutionEl.textContent =
-          `${img.naturalWidth} × ${img.naturalHeight}`;
-      };
     }
   }
 
   function showSlide(i) {
     slides.forEach(slide => slide.classList.remove("active"));
     slides[i].classList.add("active");
+
     updateInfo(i);
+
+    // Preload neighbors
+    preloadImage((i + 1) % slides.length);
+    preloadImage((i - 1 + slides.length) % slides.length);
+
+    showNavTemporarily();
   }
 
-  updateInfo(index);
-
-  next?.addEventListener("click", () => {
+  function nextSlide() {
     index = (index + 1) % slides.length;
     showSlide(index);
-  });
+  }
 
-  prev?.addEventListener("click", () => {
+  function prevSlide() {
     index = (index - 1 + slides.length) % slides.length;
     showSlide(index);
+  }
+
+  showSlide(index);
+
+  /* ========================= */
+  /* NAVIGATION */
+  /* ========================= */
+
+  next?.addEventListener("click", nextSlide);
+  prev?.addEventListener("click", prevSlide);
+
+  // Keyboard support
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") nextSlide();
+    if (e.key === "ArrowLeft") prevSlide();
   });
+
+  /* ========================= */
+  /* SWIPE SUPPORT */
+  /* ========================= */
+
+  slider.addEventListener("touchstart", e => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  slider.addEventListener("touchend", e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  });
+
+  function handleSwipe() {
+    const threshold = 50;
+    if (touchEndX < touchStartX - threshold) nextSlide();
+    if (touchEndX > touchStartX + threshold) prevSlide();
+  }
+
+  /* ========================= */
+  /* AUTO HIDE NAV */
+  /* ========================= */
+
+  function showNavTemporarily() {
+    document.querySelectorAll(".nav").forEach(btn => {
+      btn.style.opacity = "1";
+    });
+
+    clearTimeout(navTimeout);
+
+    navTimeout = setTimeout(() => {
+      document.querySelectorAll(".nav").forEach(btn => {
+        btn.style.opacity = "0";
+      });
+    }, 2000);
+  }
+
+  slider.addEventListener("mousemove", showNavTemporarily);
+  slider.addEventListener("touchstart", showNavTemporarily);
+
+  /* ========================= */
+  /* LIGHTBOX */
+  /* ========================= */
 
   slides.forEach(slide => {
     slide.addEventListener("click", () => {
@@ -119,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function() {
     lightbox.classList.remove("active");
   });
 
-  lightbox.addEventListener("click", (e) => {
+  lightbox.addEventListener("click", e => {
     if (e.target === lightbox) {
       lightbox.classList.remove("active");
     }
