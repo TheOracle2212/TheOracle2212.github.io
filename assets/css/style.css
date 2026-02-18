@@ -654,3 +654,34 @@ body.loaded .post-gallery {
     gap: 2rem;
   }
 }
+
+/* I'm quite sure that I've literally got some cooked demon-form CSS file now */
+.post-content {
+  padding: 80px 20px;
+  background: #fff;
+}
+
+.post-inner {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.post-title {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.post-date {
+  color: #777;
+  font-size: 0.9rem;
+  margin-bottom: 40px;
+}
+
+.post-body {
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.post-body p {
+  margin-bottom: 1.4em;
+}
