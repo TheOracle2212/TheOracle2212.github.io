@@ -22,7 +22,11 @@ title: About Me
     </p>
 
     <p>
-      
+    This is a website developed by me, built and hosted on the GitHub pages stack. You can access the repository here: https://github.com/TheOracle2212/TheOracle2212.github.io
+
+    </p>
+
+    <p>
       
       As a word of warning, this website will push your device's network connection. While these are still slightly downsampled images I've post processed, I personally refuse to deliberately drop resolution and definition in the images for slightly faster loading times - I hope you understand. 
     </p>
