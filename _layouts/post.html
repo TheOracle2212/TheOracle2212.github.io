@@ -2,55 +2,41 @@
 layout: default
 ---
 
-<article class="post-page">
+<section class="hero-gallery">
+  {% assign folder = page.image_folder %}
+  {% assign images = "" | split: "" %}
 
-  <!-- HERO / SLIDER -->
-  <section class="hero-gallery">
-    {% assign folder = page.image_folder %}
-    {% assign images = "" | split: "" %}
-
-    {% for file in site.static_files %}
-      {% if file.path contains folder %}
-        {% if file.extname == ".jpg" or file.extname == ".jpeg" or file.extname == ".png" or file.extname == ".webp" %}
-          {% assign images = images | push: file.path %}
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-
-    {% assign images = images | sort %}
-
-    {% if images.size > 0 %}
-    <div class="slider">
-      <button class="nav prev">&#10094;</button>
-
-      <div class="slide-container">
-        {% for img in images %}
-          <img class="slide {% if forloop.first %}active{% endif %}"
-               src="{{ img | relative_url }}"
-               loading="lazy"
-               decoding="async"
-               alt="{{ page.title }}">
-        {% endfor %}
-      </div>
-
-      <button class="nav next">&#10095;</button>
-    </div>
+  {% for file in site.static_files %}
+    {% if file.path contains folder %}
+      {% assign images = images | push: file.path %}
     {% endif %}
-  </section>
+  {% endfor %}
 
-  <!-- POST CONTENT -->
-  <section class="post-content">
-    <div class="post-inner">
-      <h1 class="post-title">{{ page.title }}</h1>
-      <p class="post-date">{{ page.date | date: "%B %d, %Y" }}</p>
+  {% if images.size > 0 %}
+  <div class="slider">
+    <button class="nav prev">&#10094;</button>
 
-      <div class="post-body">
-        {{ content }}
-      </div>
+    <div class="slide-container">
+      {% for img in images %}
+        <img class="slide {% if forloop.first %}active{% endif %}"
+             src="{{ img | relative_url }}"
+             loading="lazy"
+             decoding="async">
+      {% endfor %}
     </div>
-  </section>
 
-</article>
+    <button class="nav next">&#10095;</button>
+  </div>
+  {% endif %}
+</section>
+
+<section class="post-content">
+  <h1>{{ page.title }}</h1>
+  <p class="post-date">{{ page.date | date: "%B %d, %Y" }}</p>
+  <div class="post-body">
+    {{ content }}
+  </div>
+</section>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox">
@@ -68,8 +54,6 @@ document.addEventListener("DOMContentLoaded", function() {
   const lightboxImg = document.getElementById("lightbox-img");
   const closeBtn = document.querySelector(".close");
 
-  if (slides.length === 0) return;
-
   let index = 0;
 
   function showSlide(i) {
@@ -77,30 +61,32 @@ document.addEventListener("DOMContentLoaded", function() {
     slides[i].classList.add("active");
   }
 
-  next?.addEventListener("click", () => {
-    index = (index + 1) % slides.length;
-    showSlide(index);
-  });
+  if (next && prev) {
+    next.addEventListener("click", () => {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    });
 
-  prev?.addEventListener("click", () => {
-    index = (index - 1 + slides.length) % slides.length;
-    showSlide(index);
-  });
+    prev.addEventListener("click", () => {
+      index = (index - 1 + slides.length) % slides.length;
+      showSlide(index);
+    });
+  }
 
   slides.forEach(slide => {
     slide.addEventListener("click", () => {
-      lightbox.classList.add("active");
+      lightbox.style.display = "flex";
       lightboxImg.src = slide.src;
     });
   });
 
-  closeBtn?.addEventListener("click", () => {
-    lightbox.classList.remove("active");
+  closeBtn.addEventListener("click", () => {
+    lightbox.style.display = "none";
   });
 
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) {
-      lightbox.classList.remove("active");
+      lightbox.style.display = "none";
     }
   });
 
