@@ -609,6 +609,15 @@ body {
   .nav-links.active {
     display: flex;
   }
+/* MOBILE POST CARD FIX */
+@media (max-width: 768px) {
+  .tile-overlay {
+    opacity: 1 !important;
+    background: rgba(0,0,0,0.6);
+    justify-content: flex-end;
+    padding: 10px;
+  }
+}
 
   .hamburger {
     display: flex;
