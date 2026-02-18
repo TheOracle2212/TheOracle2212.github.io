@@ -25,6 +25,11 @@ layout: default
       {% endfor %}
     </div>
 
+    <div class="gallery-info">
+      <span class="image-counter"></span>
+      <span class="image-resolution"></span>
+    </div>
+
     <button class="nav next">&#10095;</button>
   </div>
   {% endif %}
@@ -51,7 +56,6 @@ layout: default
   <img class="lightbox-img" id="lightbox-img">
 </div>
 
-<script>
 document.addEventListener("DOMContentLoaded", function() {
 
   const slides = document.querySelectorAll(".slide");
@@ -61,41 +65,63 @@ document.addEventListener("DOMContentLoaded", function() {
   const lightboxImg = document.getElementById("lightbox-img");
   const closeBtn = document.querySelector(".close");
 
+  const counterEl = document.querySelector(".image-counter");
+  const resolutionEl = document.querySelector(".image-resolution");
+
+  if (slides.length === 0) return;
+
   let index = 0;
+
+  function updateInfo(i) {
+    const img = slides[i];
+
+    counterEl.textContent = `${i + 1} / ${slides.length}`;
+
+    // Ensure resolution loads properly
+    if (img.naturalWidth) {
+      resolutionEl.textContent =
+        `${img.naturalWidth} × ${img.naturalHeight}`;
+    } else {
+      img.onload = () => {
+        resolutionEl.textContent =
+          `${img.naturalWidth} × ${img.naturalHeight}`;
+      };
+    }
+  }
 
   function showSlide(i) {
     slides.forEach(slide => slide.classList.remove("active"));
     slides[i].classList.add("active");
+    updateInfo(i);
   }
 
-  if (next && prev) {
-    next.addEventListener("click", () => {
-      index = (index + 1) % slides.length;
-      showSlide(index);
-    });
+  updateInfo(index);
 
-    prev.addEventListener("click", () => {
-      index = (index - 1 + slides.length) % slides.length;
-      showSlide(index);
-    });
-  }
+  next?.addEventListener("click", () => {
+    index = (index + 1) % slides.length;
+    showSlide(index);
+  });
+
+  prev?.addEventListener("click", () => {
+    index = (index - 1 + slides.length) % slides.length;
+    showSlide(index);
+  });
 
   slides.forEach(slide => {
     slide.addEventListener("click", () => {
-      lightbox.style.display = "flex";
+      lightbox.classList.add("active");
       lightboxImg.src = slide.src;
     });
   });
 
-  closeBtn.addEventListener("click", () => {
-    lightbox.style.display = "none";
+  closeBtn?.addEventListener("click", () => {
+    lightbox.classList.remove("active");
   });
 
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) {
-      lightbox.style.display = "none";
+      lightbox.classList.remove("active");
     }
   });
 
 });
-</script>
