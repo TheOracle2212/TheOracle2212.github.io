@@ -302,7 +302,7 @@ html {
 .gallery-info {
   position: absolute;
   bottom: 15px;
-  right: 20px;
+  left: 20px;
   background: var(--glass);
   padding: 6px 12px;
   border-radius: 6px;
