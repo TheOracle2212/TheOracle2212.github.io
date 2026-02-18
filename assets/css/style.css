@@ -25,6 +25,22 @@ body {
   overflow-x: hidden;
 }
 
+/* ================================= */
+/* GLOBAL IMAGE LOADING BAR */
+/* ================================= */
+
+#progressBarTop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: white;
+  z-index: 9999;
+  transition: width 0.25s ease;
+  pointer-events: none;
+}
+
 /* ============================= */
 /* INDEX PAGE */
 /* ============================= */
