@@ -4,12 +4,14 @@ layout: default
 
 <article class="post-page">
 
+  <!-- HERO SECTION -->
   <section class="post-hero">
 
     {% assign first_image = page.images[0] %}
     {% assign hero = first_image | replace: '.jpg', '_large.jpg' | relative_url %}
 
     <div class="hero-image" style="background-image: url('{{ hero }}');"></div>
+
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
@@ -19,10 +21,12 @@ layout: default
 
   </section>
 
+  <!-- POST CONTENT -->
   <section class="post-content">
     {{ content }}
   </section>
 
+  <!-- GALLERY -->
   <section class="post-gallery">
     {% for img in page.images offset:1 %}
       {% assign small = img | replace: '.jpg', '_small.jpg' | relative_url %}
