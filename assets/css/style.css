@@ -310,12 +310,13 @@ html {
 }
 
 .gallery-info {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 12px;
-  font-size: 0.85rem;
-  color: var(--muted);
-  padding: 0 5px;
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  background: var(--glass);
+  padding: 6px 12px;
+  border-radius: 6px;
+  backdrop-filter: blur(6px);
 }
 
 /* Navigation buttons */
