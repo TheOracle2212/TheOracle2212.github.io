@@ -556,11 +556,6 @@ nav .logo {
   text-align: justify;
 }
 
-#progressBarTop.fade-out {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
 /* MOBILE FIRST BASE */
 body {
   margin: 0;
