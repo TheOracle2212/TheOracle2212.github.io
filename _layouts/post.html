@@ -92,3 +92,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 </script>
+
+<script>
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', e => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend', e => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
+});
+
+function handleSwipe() {
+  const threshold = 50;
+
+  if (touchEndX < touchStartX - threshold) {
+    // Swipe left
+    const next = document.querySelector(".next-post");
+    if (next) window.location.href = next.href;
+  }
+
+  if (touchEndX > touchStartX + threshold) {
+    // Swipe right
+    const prev = document.querySelector(".prev-post");
+    if (prev) window.location.href = prev.href;
+  }
+}
+</script>
