@@ -4,7 +4,6 @@ layout: default
 
 <article class="post-page">
 
-  {% if page.images %}
   <section class="post-hero">
 
     {% assign first_image = page.images[0] %}
@@ -19,13 +18,11 @@ layout: default
     </div>
 
   </section>
-  {% endif %}
 
   <section class="post-content">
     {{ content }}
   </section>
 
-  {% if page.images %}
   <section class="post-gallery">
     {% for img in page.images offset:1 %}
       {% assign small = img | replace: '.jpg', '_small.jpg' | relative_url %}
@@ -41,6 +38,5 @@ layout: default
       </div>
     {% endfor %}
   </section>
-  {% endif %}
 
 </article>
