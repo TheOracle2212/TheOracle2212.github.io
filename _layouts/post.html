@@ -111,6 +111,14 @@ function setupImageLoader() {
   });
 }
 
+if (loaded === total) {
+  progressBar.classList.add("fade-out");
+  setTimeout(() => {
+    progressBar.style.width = "0%";
+    progressBar.classList.remove("fade-out");
+  }, 400);
+}
+
 setupImageLoader();
   
   /* ========================= */
