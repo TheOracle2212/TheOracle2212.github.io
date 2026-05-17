@@ -32,4 +32,7 @@ title: About Me
     </p>
   </div>
 
+
+
+[![GitHub](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg)](https://github.com/TheOracle2212)
 </section>
