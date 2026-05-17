@@ -28,7 +28,7 @@ title: About Me
 
     <p>
       
-      As a word of warning, this website will push your device's network connection. While these are still slightly downsampled images I've post processed, I personally refuse to deliberately drop resolution and definition in the images for slightly faster loading times - I hope you understand. 
+      As a cautionary word, I've kept the original resolution of the images to preserve the integrity of how the stills have been shot. They are high resolution images, and as such, they will take a while to load - please be patient. I hope you can understand.
     </p>
   </div>
 
