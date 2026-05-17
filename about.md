@@ -33,6 +33,7 @@ title: About Me
   </div>
 
 
-
-[![GitHub](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg)](https://github.com/TheOracle2212)
+<a href="https://github.com/TheOracle2212">
+  <img src="https://cdn.simpleicons.org/github/white" width="40" height="40">
+</a>
 </section>
